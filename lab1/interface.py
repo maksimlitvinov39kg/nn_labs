@@ -1,14 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
-from summarize_api import summarize_url_api
+from summarize_api import summarize_text
 from sentiment_api import analyze_sentiment_api
 
 class TextAnalyzer:
     def __init__(self):
         pass
 
-    def analyze_text(self, text):
-        summary = summarize_url_api(text)
+    def analyze_text(self, text,num_sentences = 5):
+        summary = summarize_text(text,num_sentences)
         sentiment_result = analyze_sentiment_api(summary) if summary else None
         return summary, sentiment_result
 
