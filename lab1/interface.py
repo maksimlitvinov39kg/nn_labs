@@ -1,4 +1,5 @@
 import tkinter as tk
+import json
 from tkinter import messagebox, scrolledtext
 from summarize_api import summarize_text
 from sentiment_api import analyze_sentiment_api
@@ -7,11 +8,10 @@ class TextAnalyzer:
     def __init__(self):
         pass
 
-    def analyze_text(self, text,num_sentences = 5):
-        summary = summarize_text(text,num_sentences)
+    def analyze_text(self, text, num_sentences=2):
+        summary = summarize_text(text, num_sentences)
         sentiment_result = analyze_sentiment_api(summary) if summary else None
         return summary, sentiment_result
-
 
 class SentimentApp:
     def __init__(self, root):
@@ -50,8 +50,15 @@ class SentimentApp:
             result_message += "Не удалось получить резюме.\n\n"
 
         if sentiment_result:
-            result_message += f"Анализ тональности:\nТональность: {sentiment_result['sentiment']}\n"
-            result_message += f"Уверенность: {float(sentiment_result['confidence']) * 100:.2f}%\n"
+            sentiment_data = json.loads(sentiment_result)
+            result_message += (
+                "Анализ тональности:\n"
+                f"Положительная: {sentiment_data.get('pos', 'N/A')}\n"
+                f"Нейтральная: {sentiment_data.get('neu', 'N/A')}\n"
+                f"Отрицательная: {sentiment_data.get('neg', 'N/A')}\n"
+                f"Сводный показатель (compound): {sentiment_data.get('compound', 'N/A')}\n"
+                f"Общая тональность: {sentiment_data.get('sentiment', 'N/A')}\n"
+            )
         else:
             result_message += "Не удалось получить результаты анализа тональности.\n"
 
