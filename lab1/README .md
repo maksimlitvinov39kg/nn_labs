@@ -17,10 +17,16 @@
 3. Установите необходимые зависимости:
 
    ```bash
-   pip install tk requests
+   pip install tk requests python-dotenv
    ```
 
-4. Запустите проект:
+4. Передайте ключи в .env:
+
+   ```bash
+   RAPIDAPI_KEY = {your_key}
+   ```
+
+5. Запустите проект:
 
    ```bash
    python main.py

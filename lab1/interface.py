@@ -9,7 +9,7 @@ class TextAnalyzer:
     def __init__(self):
         pass
 
-    def analyze_text(self, text, num_sentences=2):
+    def analyze_text(self, text, num_sentences=4):
         summary1 = summarize_text1(text, num_sentences)
         sentiment_result1 = analyze_sentiment_api(summary1) if summary1 else None
         summary2 = summarize_text2(text, num_sentences)

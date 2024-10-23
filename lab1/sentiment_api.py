@@ -1,4 +1,8 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def analyze_sentiment_api(text):
     '''
@@ -12,7 +16,7 @@ def analyze_sentiment_api(text):
     
     querystring = {"text": text}
     headers = {
-        "x-rapidapi-key": "9f3f445a19msh4f2d18d66be0e11p108007jsnce52789683e0",
+        "x-rapidapi-key": os.getenv("RAPIDAPI_KEY"),
         "x-rapidapi-host": "sentiment-analyzer3.p.rapidapi.com"
     }
     
