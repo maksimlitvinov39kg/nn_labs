@@ -17,7 +17,7 @@
 3. Установите необходимые зависимости:
 
    ```bash
-   pip install tk requests python-dotenv
+   pip install -r requirements.txt
    ```
 
 4. Передайте ключи в .env:
