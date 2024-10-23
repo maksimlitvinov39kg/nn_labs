@@ -1,6 +1,13 @@
 import requests
 
 def analyze_sentiment_api(text):
+    '''
+    args:
+    text -- текст, который необходимо проанализировать
+    
+    return:
+    Результат анализа тональности текста в формате JSON или None в случае ошибки.
+    '''
     url = "https://sentiment-analyzer3.p.rapidapi.com/Sentiment"
     
     querystring = {"text": text}

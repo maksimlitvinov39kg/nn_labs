@@ -2,7 +2,15 @@ import requests
 
 
 def summarize_text2(text,num_sentences):
+    '''
+    args:
+    text -- текст, который необходимо суммировать
+    num_sentences -- количество предложений в резюме
     
+    return:
+    Резюме текста в виде строки или 'Нет резюме' при отсутствии результата, 
+    либо None в случае ошибки.
+    '''
     url = "https://summarize-texts.p.rapidapi.com/pipeline"
     
     payload = { "input": text}
