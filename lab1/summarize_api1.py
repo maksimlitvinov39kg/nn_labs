@@ -1,7 +1,7 @@
 import requests
 
 
-def summarize_text(text,num_sentences):
+def summarize_text1(text,num_sentences):
     url = "https://gpt-summarization.p.rapidapi.com/summarize"
     
     payload = { "text": text,

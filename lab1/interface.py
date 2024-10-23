@@ -1,7 +1,8 @@
 import tkinter as tk
+from tkinter import ttk, messagebox, scrolledtext
 import json
-from tkinter import messagebox, scrolledtext
-from summarize_api import summarize_text
+from summarize_api1 import summarize_text1
+from summarize_api2 import summarize_text2
 from sentiment_api import analyze_sentiment_api
 
 class TextAnalyzer:
@@ -9,58 +10,101 @@ class TextAnalyzer:
         pass
 
     def analyze_text(self, text, num_sentences=2):
-        summary = summarize_text(text, num_sentences)
-        sentiment_result = analyze_sentiment_api(summary) if summary else None
-        return summary, sentiment_result
+        summary1 = summarize_text1(text, num_sentences)
+        sentiment_result1 = analyze_sentiment_api(summary1) if summary1 else None
+        summary2 = summarize_text2(text, num_sentences)
+        sentiment_result2 = analyze_sentiment_api(summary2) if summary2 else None
+        return summary1, summary2, sentiment_result1, sentiment_result2
 
 class SentimentApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Суммаризация и анализ тональности текста")
+        self.root.title("Text Summarization and Sentiment Analysis")
+        self.root.geometry("800x1000")
 
-        self.lbl_input = tk.Label(self.root, text="Введите текст для суммаризации:")
-        self.lbl_input.pack()
+        self.root.configure(bg='#E0F7FA')
 
-        self.txt_input = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=60, height=10)
-        self.txt_input.pack()
+        self.style = ttk.Style(self.root)
+        self.style.theme_use("clam")
 
-        self.btn_analyze = tk.Button(self.root, text="Анализировать", command=self.process_and_display_results)
-        self.btn_analyze.pack()
+        self.lbl_input = ttk.Label(self.root, text="Enter the text for summarization:", background='#E0F7FA', font=('Arial', 14))
+        self.lbl_input.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
 
-        self.lbl_output = tk.Label(self.root, text="Результаты:")
-        self.lbl_output.pack()
+        self.txt_input = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=70, height=10, bg='#E3F2FD', font=('Arial', 14))
+        self.txt_input.grid(row=1, column=0, padx=10, pady=10)
 
-        self.txt_output = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=60, height=10)
-        self.txt_output.pack()
+        self.btn_analyze = ttk.Button(self.root, text="Analyze", command=self.process_and_display_results)
+        self.btn_analyze.grid(row=2, column=0, padx=10, pady=10)
+
+        self.lbl_summary1 = ttk.Label(self.root, text="Summary 1 and Sentiment Analysis 1:", background='#E0F7FA', font=('Arial', 14))
+        self.lbl_summary1.grid(row=3, column=0, padx=10, pady=5, sticky=tk.W)
+
+        self.txt_summary1 = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=70, height=5, bg='#E3F2FD', font=('Arial', 14))
+        self.txt_summary1.grid(row=4, column=0, padx=10, pady=5)
+
+        self.lbl_sentiment1 = ttk.Label(self.root, text="Sentiment analysis results for summary 1:", background='#E0F7FA', font=('Arial', 14))
+        self.lbl_sentiment1.grid(row=5, column=0, padx=10, pady=5, sticky=tk.W)
+
+        self.txt_sentiment1 = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=70, height=4, bg='#E3F2FD', font=('Arial', 14))
+        self.txt_sentiment1.grid(row=6, column=0, padx=10, pady=5)
+
+        self.lbl_summary2 = ttk.Label(self.root, text="Summary 2 and Sentiment Analysis 2:", background='#E0F7FA', font=('Arial', 14))
+        self.lbl_summary2.grid(row=7, column=0, padx=10, pady=5, sticky=tk.W)
+
+        self.txt_summary2 = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=70, height=5, bg='#E3F2FD', font=('Arial', 14))
+        self.txt_summary2.grid(row=8, column=0, padx=10, pady=5)
+
+        self.lbl_sentiment2 = ttk.Label(self.root, text="Sentiment analysis results for summary 2:", background='#E0F7FA', font=('Arial', 14))
+        self.lbl_sentiment2.grid(row=9, column=0, padx=10, pady=5, sticky=tk.W)
+
+        self.txt_sentiment2 = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, width=70, height=4, bg='#E3F2FD', font=('Arial', 14))
+        self.txt_sentiment2.grid(row=10, column=0, padx=10, pady=5)
 
         self.analyzer = TextAnalyzer()
 
     def process_and_display_results(self):
         text = self.txt_input.get("1.0", tk.END).strip()
         if not text:
-            messagebox.showwarning("Предупреждение", "Введите текст для анализа.")
+            messagebox.showwarning("Warning", "Please enter text for analysis.")
             return
 
-        summary, sentiment_result = self.analyzer.analyze_text(text)
+        self.txt_summary1.delete("1.0", tk.END)
+        self.txt_sentiment1.delete("1.0", tk.END)
+        self.txt_summary2.delete("1.0", tk.END)
+        self.txt_sentiment2.delete("1.0", tk.END)
 
-        result_message = "Результаты анализа:\n\n"
-        if summary:
-            result_message += f"Суммаризация:\n{summary}\n\n"
+        summary1, summary2, sentiment_result1, sentiment_result2 = self.analyzer.analyze_text(text)
+
+        if summary1:
+            self.txt_summary1.insert(tk.END, f"{summary1}\n")
         else:
-            result_message += "Не удалось получить резюме.\n\n"
+            self.txt_summary1.insert(tk.END, "Failed to generate summary 1.\n")
 
-        if sentiment_result:
-            sentiment_data = json.loads(sentiment_result)
-            result_message += (
-                "Анализ тональности:\n"
-                f"Положительная: {sentiment_data.get('pos', 'N/A')}\n"
-                f"Нейтральная: {sentiment_data.get('neu', 'N/A')}\n"
-                f"Отрицательная: {sentiment_data.get('neg', 'N/A')}\n"
-                f"Сводный показатель (compound): {sentiment_data.get('compound', 'N/A')}\n"
-                f"Общая тональность: {sentiment_data.get('sentiment', 'N/A')}\n"
+        if sentiment_result1:
+            sentiment_data1 = json.loads(sentiment_result1)
+            sentiment1_text = (
+                f"Positive: {sentiment_data1.get('pos', 'N/A')}\n"
+                f"Neutral: {sentiment_data1.get('neu', 'N/A')}\n"
+                f"Negative: {sentiment_data1.get('neg', 'N/A')}\n"
+                f"Compound: {sentiment_data1.get('compound', 'N/A')}\n"
             )
+            self.txt_sentiment1.insert(tk.END, sentiment1_text)
         else:
-            result_message += "Не удалось получить результаты анализа тональности.\n"
+            self.txt_sentiment1.insert(tk.END, "Failed to generate sentiment analysis for summary 1.\n")
 
-        self.txt_output.delete("1.0", tk.END)
-        self.txt_output.insert(tk.END, result_message)
+        if summary2:
+            self.txt_summary2.insert(tk.END, f"{summary2}\n")
+        else:
+            self.txt_summary2.insert(tk.END, "Failed to generate summary 2.\n")
+
+        if sentiment_result2:
+            sentiment_data2 = json.loads(sentiment_result2)
+            sentiment2_text = (
+                f"Positive: {sentiment_data2.get('pos', 'N/A')}\n"
+                f"Neutral: {sentiment_data2.get('neu', 'N/A')}\n"
+                f"Negative: {sentiment_data2.get('neg', 'N/A')}\n"
+                f"Compound: {sentiment_data2.get('compound', 'N/A')}\n"
+            )
+            self.txt_sentiment2.insert(tk.END, sentiment2_text)
+        else:
+            self.txt_sentiment2.insert(tk.END, "Failed to generate sentiment analysis for summary 2.\n")
