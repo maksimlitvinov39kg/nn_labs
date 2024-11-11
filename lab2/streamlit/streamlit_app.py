@@ -1,36 +1,6 @@
-import json
 import streamlit as st
-from models.rugpt3large import RUGPT3Large
 
-def load_config(config_path):
-    """
-    Загрузка конфигурации из JSON-файла.
-    
-    :param config_path: Путь к конфигурационному файлу.
-    :return: Словарь с конфигурацией.
-    """
-    with open(config_path, 'r') as f:
-        config = json.load(f)
-    return config
-
-def init_model(config_path="config.json"):
-    """
-    Инициализация модели и генератора текста на основе конфигурации.
-    
-    :param config_path: Путь к конфигурационному файлу.
-    :return: Экземпляр класса TextGenerator и конфигурация.
-    """
-    config = load_config(config_path)
-    generator = RUGPT3Large(
-        model_name_or_path=config["model_name_or_path"],
-        device=config["device"]
-    )
-    return generator, config
-
-def main():
-    st.write("# Генерация текста с помощью ruGPT-3")
-    
-    generator, config = init_model(config_path='configs/rugpt3large.json')
+def run_streamlit_app(generator, config):
     
     if st.button("Инициализировать модель"):
         st.success("Модель успешно загружена!")
@@ -143,4 +113,4 @@ def main():
                     st.write("---")
 
 if __name__ == "__main__":
-    main()
+    st.error("Этот файл нужно запускать через main.py")
