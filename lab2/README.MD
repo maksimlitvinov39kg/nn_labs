@@ -23,7 +23,7 @@
 4. Запустите проект:
 
    ```bash
-   python main.py
+   streamliy run main.py
    ```
 
 ## Примечания
