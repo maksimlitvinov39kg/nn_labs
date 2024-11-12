@@ -26,7 +26,6 @@ class RUGPT3Large:
         repetition_penalty=1.2,
         length_penalty=1.0,
         no_repeat_ngram_size=3,
-        early_stopping=True
     ):
         """
         Генерация текста на основе входного промпта.
@@ -51,7 +50,7 @@ class RUGPT3Large:
             input_ids=input_ids,
             max_length=max_length,
             min_length=min_length,
-                        sequences= num_return_sequences,
+            num_return_sequences= num_return_sequences,
             do_sample=do_sample,
             temperature=temperature,
             top_k=top_k,
@@ -59,7 +58,6 @@ class RUGPT3Large:
             repetition_penalty=repetition_penalty,
             length_penalty=length_penalty,
             no_repeat_ngram_size=no_repeat_ngram_size,
-            early_stopping=early_stopping
         )
         
         generated_texts = []

@@ -1,44 +1,41 @@
 {
-    "model_name_or_path": "ai-forever/rugpt3large_based_on_gpt2",
-    "device": "auto",
-    "generation_params": {
-      "_comment_max_length": "Максимальная длина генерируемого текста",
-      "max_length": 150,
-  
-      "_comment_min_length": "Минимальная длина генерируемого текста",
-      "min_length": 20,
-  
-      "_comment_num_return_sequences": "Количество вариантов сгенерированного текста",
-      "num_return_sequences": 3,
-  
-      "_comment_do_sample": "Использование сэмплирования (включено случайное сэмплирование)",
-      "do_sample": true,
-  
-      "_comment_temperature": "Температура для управления креативностью (выше - больше вариативности)",
-      "temperature": 0.7,
-  
-      "_comment_top_k": "Ограничение по количеству выбираемых слов (топ-K сэмплирование)",
-      "top_k": 50,
-  
-      "_comment_top_p": "Вероятностное сэмплирование (топ-P сэмплирование)",
-      "top_p": 0.8,
-  
-      "_comment_repetition_penalty": "Штраф за повторение слов для улучшения разнообразия",
-      "repetition_penalty": 1.2,
-  
-      "_comment_length_penalty": "Штраф за длину текста (меньше 1.0 - более короткие тексты, больше 1.0 - более длинные)",
-      "length_penalty": 1.0,
-  
-      "_comment_no_repeat_ngram_size": "Запрет на повторение последовательностей длиной в N-граммы",
-      "no_repeat_ngram_size": 3,
-  
-      "_comment_early_stopping": "Остановка генерации при достижении удовлетворительных результатов",
-      "early_stopping": true,
-      
-      "_comment_prefix": "Префикс, который будет добавлен в начало текста",
-      "prefix": "Начало текста: ",
-      
-      "_comment_suffix": "Суффикс, который будет добавлен в конец текста",
-      "suffix": " Конец текста."
-    }
+  "model_name_or_path": "ai-forever/rugpt3large_based_on_gpt2",
+  "device": "auto",
+  "generation_params": {
+    "_comment_max_length": "Максимальная длина генерируемого текста ",
+    "max_length": 150,
+
+    "_comment_min_length": "Минимальная длина генерируемого текста ",
+    "min_length": 20,
+
+    "_comment_num_return_sequences": "Количество вариантов сгенерированного текста ",
+    "num_return_sequences": 3,
+
+    "_comment_do_sample": "Использование сэмплирования (true/false)",
+    "do_sample": true,
+
+    "_comment_temperature": "Температура для управления креативностью (диапазон: 0.0-2.0, рекомендуется 0.3-1.2)",
+    "temperature": 0.7,
+
+    "_comment_top_k": "Ограничение по количеству выбираемых слов (диапазон: 1-100)",
+    "top_k": 50,
+
+    "_comment_top_p": "Вероятностное сэмплирование (диапазон: 0.0-1.0)",
+    "top_p": 0.8,
+
+    "_comment_repetition_penalty": "Штраф за повторение слов (диапазон: 1.0-2.0)",
+    "repetition_penalty": 1.2,
+
+    "_comment_length_penalty": "Штраф за длину текста (диапазон: 0.1-2.0)",
+    "length_penalty": 1.0,
+
+    "_comment_no_repeat_ngram_size": "Запрет на повторение N-грамм (диапазон: 1-5)",
+    "no_repeat_ngram_size": 3,
+    
+    "_comment_prefix": "Префикс, который будет добавлен в начало текста (строка)",
+    "prefix": "Начало текста: ",
+    
+    "_comment_suffix": "Суффикс, который будет добавлен в конец текста (строка)",
+    "suffix": " Конец текста."
+  }
 }
